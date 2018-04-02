@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/base.css"/>
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>User page</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<form th:action="@{/user/__${currentUser}__}" th:object="${currentUser}">
+    <div class="form-group row">
+        <label for="staticUsername" class="col-sm-2 col-form-label">Username:</label>
+        <div class="col-sm-10">
+            <input class="form-control-plaintext" type="text" readonly="readonly" id="staticUsername" th:field="*{username}"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+            <input class="form-control-plaintext" type="text" readonly="readonly" id="staticEmail" th:field="*{email}" />
+        </div>
+    </div>
+</form>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

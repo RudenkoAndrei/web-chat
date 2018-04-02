@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/base.css"/>
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>Moderation page</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th th:text="uername">Username</th>
+        <th th:text="email">email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${userList}">
+        <td><a th:href="@{/moderate/__${user.username}__}"> <span th:text="${user.username}"></span></a></td>
+        <td th:text="${user.email}">0.99</td>
+    </tr>
+    </tbody>
+</table>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

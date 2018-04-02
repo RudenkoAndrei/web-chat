@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <!--<title>Title</title>-->
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/footer.css"/>
+    <link type="text/css" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link type="text/css" href="http://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/sticky-footer-navbar.css" rel="stylesheet"/>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div th:fragment="footer">
+
+            <!--== 2018 - Rudenko Andrey ==-->
+            <!--<span sec:authorize="isAuthenticated()">-->
+                <!--| Logged user: <span sec:authentication="name"></span>-->
+            <!--</span>-->
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted" align="center">Developed by <a href="https://github.com/RudenkoAndrei">Rudenko Andrey</a>.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

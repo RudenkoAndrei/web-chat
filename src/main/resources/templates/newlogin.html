@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/cover.css"/>
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link type="text/css" href="http://localhost:63342/chatik/static/css/chat.css" rel="stylesheet"/>-->
+    <!--<link type="text/css" href="http://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/sticky-footer-navbar.css" rel="stylesheet"/>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Welcome to chat</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+
+<div class="inner cover">
+    <h1 align="center" class="cover-heading">Welcome to chat!</h1>
+    <p align="center" class="lead">Please, enter your credentials:</p>
+</div>
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-3"></div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 text-center">
+                <form th:action="@{/newlogin}" method="POST">
+                    <fieldset>
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username and password!
+                            </div>
+                        </div>
+                        <div th:if="${customMessage != null}">
+                            <div class="alert alert-info" th:text="${customMessage}"></div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out!
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" class="form-control input-group-lg"
+                                    placeholder="username" required="true" autofocus="true" align="center"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-group-lg"
+                                    placeholder="password" required="true" align="center" />
+                        </div>
+                        <div class="inner cover lead">
+                                <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign in" align="center"/>
+                        </div>
+                        <!--<input type="hidden" name="_csrf" value="16e9ae08-76b9-4530-b816-06819983d048" />-->
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

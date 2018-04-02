@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>-=Chat=-</title>
+
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="http://localhost:63342/chatik/static/css/chat.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="http://localhost:63342/chatik/static/css/footer.css"/>
+
+    <!--<link type="text/css" href="http://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/sticky-footer-navbar.css" rel="stylesheet"/>-->
+    <!--<script type="text/javascript" src="../static/js/chatScript.js"></script>-->
+    <!--<div th:replace="header_footer/header :: header-css"/>-->
+</head>
+<body>
+<script type="text/javascript">
+    function connect() {
+        var socket = new SockJS('/chat-messaging');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log("connected: "+frame);
+            stompClient.subscribe('/chat/messages', function (response) {
+                var data = JSON.parse(response.body);
+                draw("left", data.from, data.message);
+            });
+        });
+    }
+
+    function draw(side, fromMessage, text) {
+        console.log("drawing...");
+
+        var $message;
+
+        $message = $($('.message_template').clone().html());
+        $message.addClass(side).find('.text').html(fromMessage + ": "+text);
+        $('.messages')
+            //.append(fromMessage +": ")
+            .append($message);
+        return setTimeout(function () {
+            return $message.addClass('appeared');
+        }, 0);
+    }
+
+    function disconnect() {
+        stompClient.disconnect();
+    }
+
+    function sendMessage() {
+        stompClient.send("/app/message", {}, JSON.stringify({'message': $("#message_input_value").val()}));
+    }
+</script>
+<div th:replace="fragments/header :: header"></div>
+<div align="center" th:if="${message != null}">
+    <div th:text="${message}"></div>
+</div>
+<div sec:authorize="${principal.getUsername() != null}">
+<h1 align="center">Welcome to chat!</h1>
+<div class="chat_window">
+    <div class="top_menu">
+        <div class="buttons">
+            <input type="button" onclick="disconnect()" class="button close"/>
+            <input type="button" onclick="connect()" class="button minimize"/>
+            <div class="button maximize"></div>
+        </div>
+        <div class="title">-=Chat=-</div>
+    </div>
+    <ul class="messages"></ul>
+    <div class="bottom_wrapper clearfix">
+        <div class="message_input_wrapper">
+            <input id="message_input_value" class="message_input" placeholder="Type your message here..." />
+        </div>
+        <input type="button" onclick="sendMessage()" class="send_message" value="Send"/>
+        <div class="btn-group btn-group-lg">
+            <button type="button" onclick="connect()" class="btn btn-success">Connect to chat</button>
+            <button type="button" onclick="disconnect()" class="btn btn-danger">Disconnect from chat</button>
+        </div>
+        <!--<button onclick="connect()"></button>-->
+        <!--<button onclick="disconnect()"></button>-->
+    </div>
+</div>
+<div id="message_template" class="message_template">
+    <li class="message"><div class="avatar"></div>
+        <div class="text_wrapper">
+            <div class="text"></div>
+        </div></li>
+</div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

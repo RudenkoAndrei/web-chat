@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="../../favicon.ico"/>
+
+    <title>Web-chat</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="http://localhost:63342/chatik/static/css/cover.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Chat-app</h3>
+              <nav class="nav nav-masthead">
+                <a class="nav-link active" href="/">Home</a>
+                <a class="nav-link" href="/registeredusers">Registered Users</a>
+                <a class="nav-link" href="/moderate" sec:authorize="isAuthenticated() and hasAnyAuthority('ROLE_ADMIN', 'ROLE_SUPERADMIN')">Admin panel</a>
+                <a class="nav-link dropdown" sec:authorize="!isAuthenticated()">
+                  <a class="nav-link dropdown-toggle" href="http://localhost:8080" id="dropdown01" data-toggle="dropdown">Join!</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="/newlogin">Login</a>
+                    <a class="dropdown-item" href="/registration">Sign up</a>
+                  </div>
+                </a>
+                <a class="nav-link dropdown" sec:authorize="isAuthenticated()">
+                  <a class="nav-link dropdown-toggle" href="http://localhost:8080" id="dropdown02" data-toggle="dropdown"><span sec:authentication="name"></span></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown02">
+                    <a class="dropdown-item" th:href="@{/user/__${#authentication.getName()}__}">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                  </div>
+                </a>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Web chat</h1>
+            <p class="lead">Small chat app with encrypted registration and authentication functions, user-page and moderation. To start conversation in chat, press <b>orange</b> button in top of chat-window. To end - <b>pink</b> button.</p>
+            <p class="lead">
+              <a href="/chat" class="btn btn-lg btn-secondary">Get started!</a>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Developed by <a href="https://github.com/RudenkoAndrei">Rudenko Andrey</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>

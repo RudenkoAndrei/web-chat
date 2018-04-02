@@ -1,0 +1,54 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:fragment="header-css">
+        <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    </div>
+    <!--<meta charset="UTF-8"/>-->
+    <!--<title>Title</title>-->
+</head>
+<body>
+    <div th:fragment="header">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Chat-app</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/chat">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registeredusers">Registered users</a>
+                    </li>
+
+                    <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="http://localhost:8080" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Join!</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="/newlogin">Log in</a>
+                            <a class="dropdown-item" href="/registration">Sign up</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="http://localhost:8080" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span sec:authentication="name"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown02">
+                            <a sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_SUPERADMIN')" class="dropdown-item" href="/moderate">Admin panel</a>
+                            <a class="dropdown-item" th:href="@{/user/__${#authentication.getName()}__}">Profile</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-md-0">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search"/>
+                </form>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
