@@ -15,7 +15,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
  */
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @EnableWebSocket
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
