@@ -24,7 +24,6 @@ import ua.com.webchat.chatik.security.MyAccessDenied;
 
 @Configuration
 @ComponentScan(basePackages = {"ua.com.webchat.chatik.security"})
-//@EnableWebMvc
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

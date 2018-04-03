@@ -55,7 +55,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         simpleMailMessage.setFrom("ras97777@gmail.com");
         simpleMailMessage.setTo(address);
         simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message + "\r\n " + "http://localhost:8080"+confirmationURL);
+        simpleMailMessage.setText(message + "\r\n " + "http://webapp.cloudapp.net/"+confirmationURL);
 
         mailSender.send(simpleMailMessage);
 

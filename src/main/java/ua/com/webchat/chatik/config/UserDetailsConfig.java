@@ -18,8 +18,12 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class UserDetailsConfig {
 
+    private final DataSource dataSource;
+
     @Autowired
-    DataSource dataSource;
+    public UserDetailsConfig(@Qualifier("dataSource") DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean("userDetailsService")
     public UserDetailsService userDetailsService(){
