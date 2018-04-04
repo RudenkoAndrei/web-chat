@@ -23,7 +23,7 @@ public class ModerationController {
     @RequestMapping(value = "/moderate", method = RequestMethod.GET)
     public ModelAndView mainModeratePage(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/moderation/mainmoderate");
+        modelAndView.setViewName("mainmoderate");
         List<User> userList = userRepository.findAll();
         modelAndView.addObject("userList", userList);
         return modelAndView;
@@ -32,7 +32,7 @@ public class ModerationController {
     @RequestMapping(value = "/moderate/{username}", method = RequestMethod.GET)
     public ModelAndView secondaryModeratePage(@PathVariable("username") String username){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/moderation/moderate");
+        modelAndView.setViewName("moderate");
 
         User currentUser = userRepository.findUserByUsername(username);
         modelAndView.addObject("currentUser", currentUser);
@@ -45,7 +45,7 @@ public class ModerationController {
         User user = userRepository.findUserByUsername(username);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("/moderation/moderateform");
+        modelAndView.setViewName("moderateform");
         return modelAndView;
     }
 
@@ -53,12 +53,12 @@ public class ModerationController {
     public ModelAndView confirmEditModerate(@ModelAttribute("user") User user, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return new ModelAndView("/moderation/moderateform");
+            return new ModelAndView("moderateform");
         }
         else {
             ModelAndView modelAndView = new ModelAndView();
             userRepository.save(user);
-            modelAndView.setViewName("/moderation/moderateform");
+            modelAndView.setViewName("moderateform");
             return modelAndView;
         }
     }

@@ -11,7 +11,5 @@ public class ServerEncode {
         String password = "super1234password098newerencode";
         String encode = new  BCryptPasswordEncoder().encode(password);
         System.out.println(password + " === " + encode);
-
-
     }
 }
